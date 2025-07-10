@@ -545,7 +545,6 @@ void drawMainBuilding()
     drawCube(-8.125f, 0.5f, 4.0f, 1.75f, 2.0f, 0.2f); // Bagian bawah kiri
     drawCube(-6.875f, 0.5f, 4.0f, 1.75f, 2.0f, 0.2f); // Bagian bawah kanan (tambahan untuk simetri)
 
-    // Main building walls (front wall removed to show interior)
     // Left wall
     drawCube(-6.0f, 2.5f, 0.0f, 0.2f, 5.0f, 8.0f);
     // Right wall
@@ -554,8 +553,55 @@ void drawMainBuilding()
     drawCube(2.0f, 2.5f, -4.0f, 16.0f, 5.0f, 0.2f);
     // front wall (dengan bukaan)
     drawCube(2.0f, 4.0f, 4.0f, 16.0f, 2.0f, 0.2f); // Bagian atas
-    // drawCube(-1.0f, 0.5f, 4.0f, 6.0f, 2.0f, 0.2f); // Bagian bawah kiri (pintu masuk)
-    // drawCube(5.0f, 0.5f, 4.0f, 6.0f, 2.0f, 0.2f);  // Bagian bawah kanan (pintu masuk)
+
+    // Sign text in front of wall
+    glPushMatrix();
+    glLineWidth(3.0f);
+    glTranslatef(-4.0f, 3.5f, 4.2f);  // Moved in front of wall, slightly higher than middle
+    setColor(1.0f, 1.0f, 1.0f);       // White text
+    glScalef(0.004f, 0.004f, 0.004f); // Made text slightly larger
+    const char *signTextA = "A";
+    for (const char *c = signTextA; *c != '\0'; c++)
+    {
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, *c);
+    }
+    glPopMatrix();
+
+    glPushMatrix();
+    glLineWidth(3.0f);
+    glTranslatef(0.0f, 3.5f, 4.2f);   // Moved in front of wall, slightly higher than middle
+    setColor(1.0f, 1.0f, 1.0f);       // White text
+    glScalef(0.004f, 0.004f, 0.004f); // Made text slightly larger
+    const char *signTextB = "B";
+    for (const char *c = signTextB; *c != '\0'; c++)
+    {
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, *c);
+    }
+    glPopMatrix();
+
+    glPushMatrix();
+    glLineWidth(3.0f);
+    glTranslatef(4.0f, 3.5f, 4.2f);   // Moved in front of wall, slightly higher than middle
+    setColor(1.0f, 1.0f, 1.0f);       // White text
+    glScalef(0.004f, 0.004f, 0.004f); // Made text slightly larger
+    const char *signTextC = "C";
+    for (const char *c = signTextC; *c != '\0'; c++)
+    {
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, *c);
+    }
+    glPopMatrix();
+
+    glPushMatrix();
+    glLineWidth(3.0f);
+    glTranslatef(8.0f, 3.5f, 4.2f);   // Moved in front of wall, slightly higher than middle
+    setColor(1.0f, 1.0f, 1.0f);       // White text
+    glScalef(0.004f, 0.004f, 0.004f); // Made text slightly larger
+    const char *signTextD = "D";
+    for (const char *c = signTextD; *c != '\0'; c++)
+    {
+        glutStrokeCharacter(GLUT_STROKE_ROMAN, *c);
+    }
+    glPopMatrix();
 }
 
 void drawRoof()
@@ -582,6 +628,37 @@ void drawRoof()
     drawCube(2.0f, 7.0f, 0.0f, 18.2f, 0.2f, 0.3f);
 }
 
+void drawChair(float x, float y, float z, float scale = 1.0f, float r = 0.4f, float g = 0.2f, float b = 0.1f, float rotation = 0.0f)
+{
+    glPushMatrix();
+    glTranslatef(x, y, z);
+    glRotatef(rotation, 0, 1, 0);
+    glScalef(scale, scale, scale);
+
+    // Set chair color
+    setColor(r, g, b);
+
+    // Seat
+    drawCube(0.0f, 0.6f, 0.0f, 0.4f, 0.05f, 0.4f);
+
+    // Back rest
+    drawCube(0.0f, 0.8f, -0.175f, 0.4f, 0.4f, 0.05f);
+
+    // Legs
+    float legThickness = 0.04f;
+    float legHeight = 0.8f;
+
+    // Front legs
+    drawCube(-0.175f, 0.2f, 0.175f, legThickness, legHeight, legThickness);
+    drawCube(0.175f, 0.2f, 0.175f, legThickness, legHeight, legThickness);
+
+    // Back legs
+    drawCube(-0.175f, 0.2f, -0.175f, legThickness, legHeight, legThickness);
+    drawCube(0.175f, 0.2f, -0.175f, legThickness, legHeight, legThickness);
+
+    glPopMatrix();
+}
+
 void drawInterior()
 {
     // Interior floor
@@ -591,14 +668,46 @@ void drawInterior()
 
     // Interior walls/partitions
     setColor(0.9f, 0.9f, 0.9f);
-    drawCube(-2.0f, 1.5f, -1.0f, 0.2f, 3.0f, 6.0f);
-    drawCube(2.0f, 1.5f, -1.0f, 0.2f, 3.0f, 6.0f);
-    drawCube(6.0f, 1.5f, -1.0f, 0.2f, 3.0f, 6.0f);
-    drawCube(10.0f, 1.5f, -1.0f, 0.2f, 3.0f, 6.0f);
+    drawCube(-2.0f, 1.5f, 0.0f, 0.2f, 3.0f, 7.0f);
+    drawCube(2.0f, 1.5f, 0.0f, 0.2f, 3.0f, 7.0f);
+    drawCube(6.0f, 1.5f, 0.0f, 0.2f, 3.0f, 7.0f);
+    drawCube(10.0f, 1.5f, 0.0f, 0.2f, 3.0f, 7.0f);
 
     // Ceiling
     setColor(0.95f, 0.95f, 0.95f);
     drawCube(2.0f, 3.8f, 0.0f, 16.0f, 0.2f, 7.5f);
+
+    // Add chairs in each section
+    // Section 1 (leftmost)
+    for (float z = 3.0f; z >= -2.0f; z -= 1.0f)
+    {
+        drawChair(-5.5f, 0.0f, z, 1.2f, 0.4f, 0.2f, 0.1f, 90.0f);
+        drawChair(-2.5f, 0.0f, z, 1.2f, 0.4f, 0.2f, 0.1f, -90.0f);
+    }
+
+    // Section 2
+    for (float z = 3.0f; z >= -2.0f; z -= 1.0f)
+    {
+        drawChair(-1.6f, 0.0f, z, 1.2f, 0.4f, 0.2f, 0.1f, 90.0f);
+        drawChair(1.6f, 0.0f, z, 1.2f, 0.4f, 0.2f, 0.1f, -90.0f);
+    }
+
+    // Section 3
+    for (float z = 3.0f; z >= -2.0f; z -= 1.0f)
+    {
+        drawChair(2.4f, 0.0f, z, 1.2f, 0.4f, 0.2f, 0.1f, 90.0f);
+        drawChair(5.6f, 0.0f, z, 1.2f, 0.4f, 0.2f, 0.1f, -90.0f);
+    }
+
+    // Section 4 (rightmost)
+    for (float z = 3.0f; z >= -2.0f; z -= 1.0f)
+    {
+        drawChair(6.4f, 0.0f, z, 1.2f, 0.4f, 0.2f, 0.1f, 90.0f);
+        drawChair(9.6f, 0.0f, z, 1.2f, 0.4f, 0.2f, 0.1f, -90.0f);
+    }
+
+    // Add chairs in security booth
+    drawChair(-8.0f, 0.0f, 2.0f, 1.0f, 0.3f, 0.3f, 0.3f, 90.0f); // Security chair
 }
 
 void drawCanopy()
